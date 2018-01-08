@@ -1,4 +1,4 @@
-package jp.tkys.file.io;
+package tech.tkys.file.io;
 
 import java.io.*;
 
