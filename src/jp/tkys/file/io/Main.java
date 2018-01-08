@@ -2,25 +2,36 @@ package jp.tkys.file.io;
 
 import java.io.*;
 
+/**
+ * Main class of file I/O application.
+ */
 public class Main {
 
+    /**
+     * Entry point of this application.
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
 	    try {
-	        writeFile("/Users/takayoshi/MyDocuments/Work/Sample.txt");
+	        writeFile("/Users/takayoshi/MyDocuments/Work/Sample.txt", false);
             readFile("/Users/takayoshi/MyDocuments/Work/Sample.txt");
         } catch (Exception e) {
-
-        } finally {
-
+            e.printStackTrace();
         }
     }
 
-    private static void writeFile(String fileName) throws IOException {
+    /**
+     * Writes sample text to the specified file.
+     * @param fileName      The file name to write.
+     * @param append        Mode of appending. true: append, false: overwrite.
+     * @throws IOException  Thrown if failed to close file writers.
+     */
+    private static void writeFile(String fileName, boolean append) throws IOException {
         FileWriter writer = null;
         BufferedWriter bufferedWriter = null;
 
         try {
-            writer = new FileWriter(fileName, false);
+            writer = new FileWriter(fileName, append);
             bufferedWriter = new BufferedWriter(writer);
 
             bufferedWriter.write(String.format("ABC%n"));
@@ -41,12 +52,17 @@ public class Main {
         }
     }
 
+    /**
+     * Reads text from the specified file.
+     * @param fileName      The file name to read.
+     * @throws IOException  Thrown if failed to close file readers.
+     */
     private static void readFile(String fileName) throws IOException {
-        FileReader fileReader = null;
+        FileReader reader = null;
         BufferedReader bufferedReader = null;
         try {
-            fileReader = new FileReader(fileName);
-            bufferedReader = new BufferedReader(fileReader);
+            reader = new FileReader(fileName);
+            bufferedReader = new BufferedReader(reader);
 
             String line = bufferedReader.readLine();
             while (line != null) {
@@ -60,8 +76,8 @@ public class Main {
                 bufferedReader.close();
             }
 
-            if (fileReader != null) {
-                fileReader.close();
+            if (reader != null) {
+                reader.close();
             }
         }
     }
